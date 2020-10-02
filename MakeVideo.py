@@ -177,7 +177,7 @@ class MakeVideo:
 
 
                 except:
-                    self.app.edit_message_text(chat_id=self.chat_id, text="Error While Sending Video wiht properties",
+                    self.app.edit_message_text(chat_id=self.chat_id, text="Error While Sending Video with properties",
                                                message_id=self.message_reply_id)
                     pass
             else:
@@ -325,6 +325,7 @@ class MakeVideo:
 
         print("send video start")
         print(chat_id, video_path, content_name, self.duration)
+
         self.start=time.time()
 
         self.send_video_message = self.app.send_video(chat_id=chat_id,
@@ -342,7 +343,7 @@ class MakeVideo:
         print("at send video ")
 
         print("send video start")
-        print(chat_id, video_path, content_name, self.duration)
+        print(chat_id, video_path, content_name)
 
         self.send_video_message = self.app.send_video(chat_id=chat_id,
                                                  video=video_path,
@@ -396,19 +397,18 @@ class MakeVideo:
 
     def video_progress(self, current, total):
         now = time.time()
-        diff = now - self.start
-        percentage = current * 100 / total
-        speed = current / diff
-        elapsed_time = round(diff) * 1000
-        time_to_completion = round((total - current) / speed) * 1000
-        estimated_total_time = elapsed_time + time_to_completion
+        if now>self.start:
+            diff = (now - self.start)
 
-        progress = "{0}\n{1}{2}\n Uploaded:{3}\nETA:{4}\n P: {5} S: {6} ".format(
-            ''.join(["_" for i in range(math.floor(percentage / 5))]),
+        percentage = (current / total)*100
+        speed = current / diff
+
+        progress = "{}" "\n\n" "{}" "\n\n" "{}" "\n " "Uploaded: {}" "\n\nPercentage : {} %       Speed : {} ".format(
+            ''.join(["*" for i in range(math.floor(percentage / 5))]),
             str("❚█══uploading══█❚"),
-            ''.join(["_" for i in range(20 - math.floor(percentage / 5))]),
-            self.humanbytes(current) + ' of ' + self.humanbytes(total),
-            str(datetime.timedelta(seconds=int(estimated_total_time))),
+            ''.join(["*" for i in range(math.floor(percentage / 5))]),
+            self.humanbytes(current) + '  of  ' + self.humanbytes(total),
+            #str(datetime.timedelta(seconds=int(estimated_total_time))),
             round(percentage, 2),
             self.humanbytes(speed))
 
