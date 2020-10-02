@@ -403,7 +403,7 @@ class MakeVideo:
         percentage = (current / total)*100
         speed = current / diff
 
-        progress = "{}" "\n\n" "{}" "\n\n" "{}" "\n " "Uploaded: {}" "\n\nPercentage : {} %       Speed : {} ".format(
+        progress = "{}" "\n\n" "{}" "\n\n" "{}" "\n " "Uploaded: {}" "\n\nPercentage : {} %       Speed : {}ps ".format(
             ''.join(["*" for i in range(math.floor(percentage / 5))]),
             str("❚█══uploading══█❚"),
             ''.join(["*" for i in range(math.floor(percentage / 5))]),
