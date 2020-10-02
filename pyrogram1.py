@@ -1,7 +1,7 @@
 import time
-
 from pyrogram import Client,filters
 import os,zipfile,sys,shutil,glob,subprocess,re,threading,time,datetime,shutil
+
 from moviepy.editor import VideoFileClip
 import PIL
 from PIL import Image
@@ -11,17 +11,19 @@ from UploadDrive import Upload
 from MakeVideo import MakeVideo
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
+
+
 import logging
 
 
 
-logging.basicConfig(filename="log.txt",
+'''logging.basicConfig(filename="log.txt",
                     filemode='a',level=logging.INFO,
                     format='%(asctime)s - %(message)s')
 
+'''
 
-
-logging.info("Program Execution Started....")
+#logging.info("Program Execution Started....")
 
 
 zipvy="ftsihsydi"
@@ -31,7 +33,7 @@ zipvy="ftsihsydi"
 
 
 
-logging.info("Google Drive Authentication ... Done")
+#logging.info("Google Drive Authentication ... Done")
 
 
 
@@ -82,13 +84,18 @@ def auth():
 
 
 
-@app.on_message(filters.chat(zipvy)&filters.command(commands='send-log',prefixes='#'))
+@app.on_message(filters.chat(zipvy)&filters.command(commands='send_log',prefixes='#'))
 def my_handler_log(client,message):
-    app.send_document(chat_id='zipvy',
-                      document='log.txt',
-                      caption="Here's Your Log",
-                      )
+    print("At send log")
+    #logging.info(msg="Now sending log .....")
+    with open('log.txt',mode='r',encoding='utf-8') as log:
 
+        app.send_document(chat_id=zipvy,
+                         document=log,
+                         caption="Here's Your Log",
+                            )
+    print("sending log is done")
+    #logging.info(msg=" sending of  log is done .....")
 
 @app.on_message(filters.chat(zipvy)&filters.command(commands='cook',prefixes='#', ))
 def my_handler_stop(client,message):
